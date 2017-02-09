@@ -7,12 +7,27 @@
     <mytag></mytag>
     <script type="riot/tag">
         <mytag>
-            <p>Hello World</p>
+            <p>You've selected: { value }</p>
+            <select onchange={changed}>
+                <option each={ value, label in opts.valueList} value={value}>{label}</option>
+            </select>
+            var self = this;
+            self.value = 'Nothing';
+            this.changed = function(e) {
+                self.value = e.target.value;
+            }
         </mytag>
     </script>
     <script src="https://cdn.jsdelivr.net/riot/2.6/riot+compiler.min.js"></script>
     <script type="text/javascript">
-        riot.mount('mytag');
+        riot.mount('mytag', {
+            valueList : {
+                '0' : '----',
+                '1' : 'One',
+                '2' : 'Two',
+                '3' : 'Three'
+            }
+        });
     </script>  
 </body>
 </html>
